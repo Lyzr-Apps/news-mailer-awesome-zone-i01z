@@ -26,7 +26,12 @@ import {
   RiNewspaperLine,
   RiCalendarScheduleLine,
   RiAlertLine,
-  RiLoader4Line
+  RiLoader4Line,
+  RiFlowChart,
+  RiRobotLine,
+  RiSearchEyeLine,
+  RiArrowRightLine,
+  RiArrowDownLine
 } from 'react-icons/ri'
 
 // ---------------------------------------------------------------------------
@@ -771,37 +776,129 @@ export default function Page() {
                 </div>
               </div>
 
-              {/* Agent Info */}
+              {/* Agent Workflow */}
               <div className="bg-card border border-border rounded-sm p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <RiSettings3Line className="w-4 h-4 text-muted-foreground" />
+                <div className="flex items-center gap-2 mb-4">
+                  <RiFlowChart className="w-4 h-4 text-muted-foreground" />
                   <h3 className="text-xs font-medium tracking-wide uppercase text-foreground">
-                    Agents
+                    Agent Workflow
                   </h3>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${activeAgentId === MANAGER_AGENT_ID ? 'bg-foreground animate-pulse' : 'bg-muted-foreground'}`} />
-                      <span className="text-xs text-foreground truncate">AI News Coordinator</span>
-                    </div>
-                    <span className="text-xs text-muted-foreground font-mono shrink-0">Manager</span>
+
+                {/* Workflow Visualization */}
+                <div className="space-y-3">
+                  {/* Input trigger */}
+                  <div className="flex items-center gap-2 px-3 py-2 bg-secondary rounded-sm border border-border">
+                    <RiPlayLine className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                    <span className="text-xs text-muted-foreground tracking-wide">Scheduler / Send Now</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${activeAgentId === RESEARCH_AGENT_ID ? 'bg-foreground animate-pulse' : 'bg-muted-foreground'}`} />
-                      <span className="text-xs text-foreground truncate">AI Research Agent</span>
-                    </div>
-                    <span className="text-xs text-muted-foreground font-mono shrink-0">Perplexity</span>
+
+                  {/* Arrow down */}
+                  <div className="flex justify-center">
+                    <RiArrowDownLine className="w-4 h-4 text-muted-foreground" />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${activeAgentId === EMAIL_AGENT_ID ? 'bg-foreground animate-pulse' : 'bg-muted-foreground'}`} />
-                      <span className="text-xs text-foreground truncate">Email Digest Agent</span>
+
+                  {/* Manager Agent - PROMINENT */}
+                  <div className={`relative px-3 py-3 rounded-sm border-2 transition-all duration-300 ${
+                    activeAgentId === MANAGER_AGENT_ID
+                      ? 'border-foreground bg-accent'
+                      : 'border-border bg-secondary'
+                  }`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <RiRobotLine className={`w-4 h-4 shrink-0 ${activeAgentId === MANAGER_AGENT_ID ? 'text-foreground animate-pulse' : 'text-foreground'}`} />
+                        <div>
+                          <p className="text-sm font-semibold text-foreground tracking-wide">AI News Coordinator</p>
+                          <p className="text-xs text-muted-foreground font-mono">Manager Agent</p>
+                        </div>
+                      </div>
+                      <span className="px-1.5 py-0.5 text-[10px] font-mono bg-primary text-primary-foreground rounded-sm">
+                        gpt-4.1
+                      </span>
                     </div>
-                    <span className="text-xs text-muted-foreground font-mono shrink-0">Gmail</span>
+                    {activeAgentId === MANAGER_AGENT_ID && (
+                      <div className="mt-2 flex items-center gap-1.5">
+                        <RiLoader4Line className="w-3 h-3 animate-spin text-foreground" />
+                        <span className="text-xs text-foreground">Orchestrating workflow...</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Arrow down splitting to two */}
+                  <div className="flex justify-center">
+                    <div className="flex flex-col items-center">
+                      <RiArrowDownLine className="w-4 h-4 text-muted-foreground" />
+                      <div className="flex items-center gap-1 -mt-0.5">
+                        <div className="w-[calc(50%-8px)] h-px bg-border" />
+                        <div className="w-4" />
+                        <div className="w-[calc(50%-8px)] h-px bg-border" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Sub-Agents side by side */}
+                  <div className="grid grid-cols-2 gap-2">
+                    {/* Research Agent */}
+                    <div className={`px-2.5 py-2.5 rounded-sm border transition-all duration-300 ${
+                      activeAgentId === MANAGER_AGENT_ID
+                        ? 'border-border bg-accent/50'
+                        : 'border-border bg-background'
+                    }`}>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <RiSearchEyeLine className={`w-3.5 h-3.5 shrink-0 ${activeAgentId === MANAGER_AGENT_ID ? 'text-foreground animate-pulse' : 'text-muted-foreground'}`} />
+                        <span className="text-xs font-medium text-foreground truncate">Research Agent</span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground font-mono">Perplexity sonar-pro</p>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">Web search for AI news</p>
+                    </div>
+
+                    {/* Email Agent */}
+                    <div className={`px-2.5 py-2.5 rounded-sm border transition-all duration-300 ${
+                      activeAgentId === MANAGER_AGENT_ID
+                        ? 'border-border bg-accent/50'
+                        : 'border-border bg-background'
+                    }`}>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <RiMailSendLine className={`w-3.5 h-3.5 shrink-0 ${activeAgentId === MANAGER_AGENT_ID ? 'text-foreground animate-pulse' : 'text-muted-foreground'}`} />
+                        <span className="text-xs font-medium text-foreground truncate">Email Agent</span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground font-mono">OpenAI gpt-4.1</p>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">Compose & send via Gmail</p>
+                    </div>
+                  </div>
+
+                  {/* Arrow down */}
+                  <div className="flex justify-center">
+                    <RiArrowDownLine className="w-4 h-4 text-muted-foreground" />
+                  </div>
+
+                  {/* Output */}
+                  <div className="flex items-center gap-2 px-3 py-2 bg-secondary rounded-sm border border-border">
+                    <RiCheckLine className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                    <span className="text-xs text-muted-foreground tracking-wide">Email Delivered</span>
                   </div>
                 </div>
+
+                {/* Agent IDs (collapsible) */}
+                <details className="mt-3">
+                  <summary className="text-[10px] text-muted-foreground cursor-pointer hover:text-foreground transition-colors tracking-wide">
+                    Agent Details
+                  </summary>
+                  <div className="mt-2 space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-muted-foreground">Coordinator</span>
+                      <span className="text-[10px] font-mono text-muted-foreground">{MANAGER_AGENT_ID.slice(0, 8)}...</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-muted-foreground">Research</span>
+                      <span className="text-[10px] font-mono text-muted-foreground">{RESEARCH_AGENT_ID.slice(0, 8)}...</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-muted-foreground">Email</span>
+                      <span className="text-[10px] font-mono text-muted-foreground">{EMAIL_AGENT_ID.slice(0, 8)}...</span>
+                    </div>
+                  </div>
+                </details>
               </div>
             </div>
           </div>
