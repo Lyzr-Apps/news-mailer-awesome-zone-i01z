@@ -1,0 +1,69 @@
+{
+  "nodes": [
+    {
+      "id": "input_node",
+      "type": "Input",
+      "label": "Scheduler / Send Now",
+      "nodeCategory": "input"
+    },
+    {
+      "id": "manager_agent",
+      "type": "Agent",
+      "label": "AI News Coordinator",
+      "nodeCategory": "agent",
+      "agent_id": "699c700d46369d6f6bfe4685",
+      "provider": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.3,
+      "agent_type": "manager",
+      "managed_agents": ["699c6fecf75ee4297f34ba93", "699c6ffc0c7a75370303a727"]
+    },
+    {
+      "id": "research_agent",
+      "type": "Agent",
+      "label": "AI Research Agent",
+      "nodeCategory": "agent",
+      "agent_id": "699c6fecf75ee4297f34ba93",
+      "provider": "Perplexity",
+      "model": "sonar-pro",
+      "temperature": 0.2,
+      "agent_type": "sub-agent"
+    },
+    {
+      "id": "email_agent",
+      "type": "Agent",
+      "label": "Email Digest Agent",
+      "nodeCategory": "agent",
+      "agent_id": "699c6ffc0c7a75370303a727",
+      "provider": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.4,
+      "agent_type": "sub-agent",
+      "tool_configs": [
+        {
+          "tool_name": "gmail",
+          "tool_source": "composio",
+          "action_names": ["GMAIL_SEND_EMAIL"]
+        }
+      ]
+    },
+    {
+      "id": "output_node",
+      "type": "Output",
+      "label": "Email Delivered",
+      "nodeCategory": "end"
+    }
+  ],
+  "edges": [
+    { "source": "input_node", "target": "manager_agent" },
+    { "source": "manager_agent", "target": "research_agent" },
+    { "source": "manager_agent", "target": "email_agent" },
+    { "source": "email_agent", "target": "output_node" }
+  ],
+  "schedule": {
+    "schedule_id": "699c7013399dfadeac38a77b",
+    "cron_expression": "*/10 * * * *",
+    "timezone": "UTC",
+    "is_active": false
+  }
+}

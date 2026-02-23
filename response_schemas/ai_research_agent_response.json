@@ -1,0 +1,32 @@
+{
+  "agent_name": "AI Research Agent",
+  "agent_id": "699c6fecf75ee4297f34ba93",
+  "description": "Searches the web for the latest AI research breakthroughs, new papers, model releases, and industry developments",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "stories": [
+      {
+        "headline": "string",
+        "summary": "string",
+        "source": "string",
+        "url": "string"
+      }
+    ],
+    "total_stories": "number",
+    "research_timestamp": "string"
+  },
+  "example_response": {
+    "stories": [
+      {
+        "headline": "sample string",
+        "summary": "sample string",
+        "source": "sample string",
+        "url": "sample string"
+      }
+    ],
+    "total_stories": 0,
+    "research_timestamp": "sample string"
+  }
+}

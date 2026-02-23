@@ -1,0 +1,26 @@
+{
+  "agent_name": "AI News Coordinator",
+  "agent_id": "699c700d46369d6f6bfe4685",
+  "description": "Coordinates the research and email delivery workflow \u2014 routes research queries to the research agent, receives findings, and passes them to the email agent for digest composition and delivery",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "workflow_status": "string",
+    "research_completed": "boolean",
+    "email_sent": "boolean",
+    "recipient": "string",
+    "subject": "string",
+    "stories_count": "number",
+    "timestamp": "string"
+  },
+  "example_response": {
+    "workflow_status": "sample string",
+    "research_completed": false,
+    "email_sent": false,
+    "recipient": "sample string",
+    "subject": "sample string",
+    "stories_count": 0,
+    "timestamp": "sample string"
+  }
+}
